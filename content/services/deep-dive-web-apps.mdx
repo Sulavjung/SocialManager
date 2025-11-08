@@ -1,0 +1,165 @@
+---
+title: Deep Dive — Web App Architecture and Best Practices
+description: A long-form guide exploring design, performance, and delivery of modern web applications using Next.js and React.
+excerpt: An in-depth walkthrough of architecture, state management, performance, testing, and deployment patterns.
+group: product-development
+date: 2025-11-08
+---
+
+import Callout from "@/components/Callout";
+
+# Deep Dive — Web App Architecture and Best Practices
+
+Welcome to a long-form exploration of how to design, build, and operate modern web applications using React and Next.js. This article covers architecture, data strategies, performance considerations, developer ergonomics, and deployment patterns.
+
+<Callout title="About this guide">
+  This write-up is intentionally long — use it as a reference while you plan or
+  refactor a production web application. It includes examples, trade-offs, and
+  links to further reading.
+</Callout>
+
+## Table of contents
+
+- Introduction
+- Core architecture
+- Data fetching and state
+- Performance and rendering
+- Component design and patterns
+- Testing and QA
+- CI/CD and deployment
+- Monitoring and observability
+- Migration and refactoring guidance
+
+---
+
+## Introduction
+
+Modern web apps must be fast, discoverable, and maintainable. Next.js provides a great baseline for server-side rendering, static generation, and incremental adoption. This section outlines the high-level goals.
+
+- Fast initial page loads (SEO + UX)
+- Predictable data loading strategies
+- Secure-by-default architecture
+- Testable code and clear responsibilities
+
+## Core architecture
+
+Architectural components:
+
+1. Presentation layer — React components, design system, and accessibility.
+2. Data layer — APIs, GraphQL or REST, edge caching and CDNs.
+3. Business logic — lightweight services, domain services or serverless functions.
+4. Persisted storage — databases and object stores.
+
+### Recommended folder layout
+
+Prefer grouping by domain or feature ("feature folders") to keep related code close together. Example:
+
+```
+app/
+  dashboard/
+  products/
+  shared/
+components/
+  ui/
+  layout/
+lib/
+  api/
+  utils/
+```
+
+## Data fetching and state
+
+Next.js offers multiple rendering modes: static generation, server-side rendering (SSR), and client-side rendering. Choose based on freshness and SEO requirements.
+
+  import Callout from '../../components/Callout';
+
+- Use static generation (SSG) for marketing pages.
+- Use SSR for user-specific pages requiring fresh data.
+- Use incremental static regeneration (ISR) for frequently updated but cacheable content.
+
+#### Example: SSG + client patching
+
+1. Render canonical content with SSG at build time.
+2. Hydrate with client-side queries for personalization and live updates.
+
+```tsx
+// pseudo-code
+export async function getStaticProps() {
+  const data = await fetchCanonicalData();
+  return { props: { data }, revalidate: 60 };
+}
+```
+
+## Performance and rendering
+
+Performance is multi-dimensional: Time to First Byte (TTFB), Largest Contentful Paint (LCP), and Time to Interactive (TTI). Use lightweight components, optimize images, and prioritize critical CSS.
+
+### Image strategy
+
+- Use Next/Image or an optimized CDN.
+- Prefer responsive images with srcset and sizes.
+
+### Caching
+
+- Cache API responses at edge when safe.
+- Use SWR or React Query for client-side caching and revalidation.
+
+<Callout title="Tip — measure before optimizing">
+  Use Lighthouse, WebPageTest, and real-user metrics (RUM) to find bottlenecks.
+  Premature optimization is costly.
+</Callout>
+
+## Component design and patterns
+
+Design components to be:
+
+- Small and focused
+- Accessible (keyboard + screen reader)
+- Theming-friendly
+
+### Atomic components vs composition
+
+Prefer composability: build atoms, molecules, and organisms. Keep presentation and behavior separable when possible.
+
+```tsx
+// Button.tsx (example)
+export function Button({ children, onClick }) {
+  return <button className="px-4 py-2 rounded">{children}</button>;
+}
+```
+
+## Testing and QA
+
+Automated testing pyramid:
+
+- Unit tests for pure logic (fast)
+- Integration tests for components
+- E2E tests for critical user journeys
+
+Use Jest + React Testing Library for unit and integration tests. Use Playwright for E2E.
+
+## CI/CD and deployment
+
+Automate builds and run unit tests, linters, and type checks. Deploy via Vercel, Netlify, or self-hosted infrastructure using Docker/Kubernetes depending on scale.
+
+## Monitoring and observability
+
+Integrate application monitoring (Sentry), performance tracing, and alerts. Capture RUM to measure actual user experiences.
+
+## Migration and refactoring guidance
+
+When refactoring large codebases, do small, backwards-compatible changes. Keep feature flags for risky switches and create migration tests.
+
+---
+
+## Appendix: Example checklist
+
+1. Add a performance budget.
+2. Ensure 90+ accessibility score for critical pages.
+3. Add types and run strict TypeScript.
+
+<Callout title="Closing note">
+  This document is intentionally long and meant to be copy-pasted into a content
+  directory for demo or editorial purposes. Tweak examples to your stack and use
+  the Callout component to surface important notes in MDX.
+</Callout>
