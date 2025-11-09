@@ -50,9 +50,7 @@ export function Header() {
               {mainMenu.map((menu, i) =>
                 menu.items ? (
                   <NavigationMenuItem key={i}>
-                    <NavigationMenuTrigger className="font-semibold">
-                      {menu.title}
-                    </NavigationMenuTrigger>
+                    <NavigationMenuTrigger>{menu.title}</NavigationMenuTrigger>
 
                     <NavigationMenuContent className="p-4 supports-backdrop-blur:bg-background/60 bg-background/90 backdrop-blur">
                       <div className="flex flex-col space-y-2">

@@ -35,7 +35,13 @@ import {
   Zap,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardDescription,
+} from "@/components/ui/card";
 import {
   Accordion,
   AccordionItem,
@@ -43,21 +49,52 @@ import {
   AccordionContent,
 } from "@/components/ui/accordion";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Typewriter } from "nextjs-simple-typewriter";
+import {
+  Slideshow,
+  SlideshowAnimatedContent,
+  SlideshowContent,
+  SlideshowControls,
+  SlideshowItem,
+  SlideshowNext,
+  SlideShowNextAndPrevious,
+  SlideshowPrevious,
+} from "@/components/SlideShow";
+import { mainMenu } from "@/config/menu";
+
+const Images = [
+  "call_screening__dslz1ggca1g2_large_2x.jpg",
+  "hold_assist__djza3t3aw3gy_large_2x.jpg",
+  "liquid_glass__e9ecrp3gjoi2_large_2x.jpg",
+  "lock_screen__dvngwda2cfee_large_2x.jpg",
+  "polls__exmugx31zriq_large_2x.jpg",
+];
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col overflow-x-hidden">
       {/* Hero section */}
       <section className="py-24 px-6 flex flex-col items-center text-center">
         <div className="max-w-3xl mx-auto space-y-6">
-          <div className="m-2">
-            <Badge variant={"outline"} className="bg-blue-100 text-blue-800">
-              Websites
-            </Badge>
-          </div>
           <div className="flex flex-row items-center justify-center gap-2">
-            <Badge>AI automation</Badge>
-            <Badge variant={"secondary"}>Much More</Badge>
+            <Badge>
+              <div className="h-2 w-2 bg-orange-300 rounded rounded-full"></div>
+              <Typewriter
+                words={[
+                  "Web Apps",
+                  "Mobile Apps",
+                  "AI Automation",
+                  "Cloud DevOps",
+                ]}
+                loop={0}
+                cursor
+                cursorStyle="_"
+                cursorBlinking
+                typeSpeed={70}
+                deleteSpeed={50}
+                delaySpeed={1000}
+              />
+            </Badge>
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight">
             Transforming Ideas into Scalable Digital Systems
@@ -84,6 +121,139 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="px-2 bg-muted/50 py-16">
+        <div className="text-center mb-16">
+          <h2 className="text-2xl md:text-4xl font-bold">
+            Product Development
+          </h2>
+          <p className="mt-3 text-md md:text-lg w-2/3 text-muted-foreground max-w-3xl mx-auto">
+            End-to-end software development and cloud solutions
+          </p>
+        </div>
+        <Slideshow
+          autoPlay={true}
+          autoPlayInterval={7000}
+          pauseOnHover
+          showPlayPause
+          showDots
+          loop={false}
+          align="start"
+          className="container mx-auto h-120 "
+        >
+          <SlideshowContent className="h-120">
+            {mainMenu[0]?.items?.[0]?.items?.map((item) => (
+              <SlideshowItem
+                className="h-full w-[200px] md:basis-1/2"
+                key={item.title}
+              >
+                <Card className="h-full p-8 flex flex-col justify-center bg-gradient-to-br from-orange-500 to-red-600 text-white">
+                  <CardHeader className="flex flex-col gap-2">
+                    <CardTitle className="text-3xl md:w-2/4 flex flex-col gap-4 ">
+                      <Code2 className="w-13 h-13 p-2 bg-white/20 rounded rounded-md" />
+                      {item.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription className="text-xl text-white/90">
+                      {item.description}
+                    </CardDescription>
+                  </CardContent>
+                </Card>
+              </SlideshowItem>
+            ))}
+          </SlideshowContent>
+
+          <SlideshowControls className="mt-4" />
+        </Slideshow>
+      </section>
+
+      <section className="container mx-auto px-4 py-16 pb-24">
+        <div className=" pb-6 ">
+          <h2 className="text-xl md:text-3xl font-bold">iOS 26. New Look.</h2>
+          <h2 className="text-xl md:text-3xl font-bold">Even more magic.</h2>
+        </div>
+        <Slideshow
+          autoPlay={false}
+          autoPlayInterval={7000}
+          pauseOnHover
+          showPlayPause
+          showDots
+          loop={false}
+          align="start"
+          className="mx-auto"
+        >
+          <SlideshowContent>
+            {Images.map((src, index) => (
+              <SlideshowItem className="h-full md:basis-1/3 lg:basis-2/7 basis-3/4 text-black">
+                <div>
+                  <Image
+                    src={`/Images/${src}`}
+                    alt="Liquid Glass"
+                    width={200}
+                    height={80}
+                    className="h-full w-full object-cover rounded-lg"
+                  />
+                  <CardDescription className="py-4 pb-0">
+                    <strong>Liquid Glass.</strong>The new iOS design reflects
+                    and refracts what’s beneath it in real time, dynamically
+                    adapting to your content across apps and devices.
+                  </CardDescription>
+                </div>
+              </SlideshowItem>
+            ))}
+          </SlideshowContent>
+          <SlideShowNextAndPrevious varient="bottom-right-together" />
+        </Slideshow>
+      </section>
+
+      <section className="px-2 bg-muted/50 py-16">
+        <Slideshow
+          autoPlay={false}
+          autoPlayInterval={7000}
+          pauseOnHover
+          showPlayPause
+          showDots
+          loop
+          className="container mx-auto h-120  mt-4"
+        >
+          <SlideshowContent className="h-120">
+            <SlideshowItem className="h-full md:basis-1/3">
+              <Card className="h-full bg-gradient-to-br from-indigo-500 to-purple-600 text-white p-8 flex flex-col justify-center">
+                <CardHeader>
+                  <CardTitle className="text-2xl text-white/90 w-3/4">
+                    The ultimate pro camera system. All 48MP Fusion rear camera.
+                    And the longest zoom ever on an iPhone.
+                  </CardTitle>
+                </CardHeader>
+              </Card>
+            </SlideshowItem>
+
+            <SlideshowItem className="md:basis-2/3">
+              <Card className="h-full bg-gradient-to-br from-emerald-500 to-teal-600 text-white p-8">
+                <CardHeader>
+                  <CardTitle className="text-4xl">MacBook Air M3</CardTitle>
+                  <CardDescription className="text-xl text-white/90">
+                    All‑day battery.
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </SlideshowItem>
+
+            <SlideshowItem>
+              <Card className="h-full bg-gradient-to-br from-orange-500 to-red-600 text-white p-8">
+                <CardHeader>
+                  <CardTitle className="text-4xl">Apple Watch Ultra</CardTitle>
+                  <CardDescription className="text-xl text-white/90">
+                    Built for extremes.
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </SlideshowItem>
+          </SlideshowContent>
+
+          <SlideShowNextAndPrevious varient="bottom-right-together" />
+        </Slideshow>
+      </section>
       {/* ==================== 2. SERVICES ==================== */}
       <section className="py-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -1035,3 +1205,10 @@ const Github = ({ className }: { className?: string }) => {
     </svg>
   );
 };
+function useTypeWriter(arg0: {
+  words: string[];
+  loop: boolean;
+  typeSpeed: number;
+}): [any] {
+  throw new Error("Function not implemented.");
+}
