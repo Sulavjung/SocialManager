@@ -1,4 +1,6 @@
 // app/page.tsx
+export const dynamic = "force-dynamic";
+
 import { ProjectCard } from "@/components/ProjectCard";
 import { CreateProjectDialog } from "@/components/CreateProjectDialog";
 import { prisma } from "@/lib/prisma";
