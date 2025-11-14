@@ -24,7 +24,7 @@ interface AppConfig {
 }
 
 export const appConfig: AppConfig = {
-  name: "Avisul",
+  name: "Social Manager",
   github: {
     title: "React Shadcn Starter",
     url: "https://github.com/sulavJung",

@@ -46,98 +46,7 @@ export function Header() {
 
           {/* 🧭 Desktop Nav */}
           <NavigationMenu>
-            <NavigationMenuList>
-              {mainMenu.map((menu, i) =>
-                menu.items ? (
-                  <NavigationMenuItem key={i}>
-                    <NavigationMenuTrigger>{menu.title}</NavigationMenuTrigger>
-
-                    <NavigationMenuContent className="p-4 supports-backdrop-blur:bg-background/60 bg-background/90 backdrop-blur">
-                      <div className="flex flex-col space-y-2">
-                        <ul className="grid gap-2 w-[724px]">
-                          {menu.items.map((sub, idx) => (
-                            <li key={idx}>
-                              {/* If sub has children */}
-                              {sub.items && sub.items.length > 0 ? (
-                                <div className="mb-2">
-                                  <p className="text-[11px] font-bold uppercase text-muted-foreground mb-1 tracking-wide">
-                                    {sub.title}
-                                  </p>
-
-                                  <ul className="pl-2 grid grid-cols-3 gap-2 border-l border-muted/30">
-                                    {sub.items.map((child, cIdx) => (
-                                      <li key={cIdx}>
-                                        <Link
-                                          href={child.to ?? "#"}
-                                          className={cn(
-                                            "flex items-start gap-2 rounded-md px-2 py-1 hover:bg-muted transition",
-                                            isActive(child.to) &&
-                                              "bg-muted font-semibold",
-                                          )}
-                                        >
-                                          <div className="w-5 h-5 flex items-center justify-center">
-                                            {child.icon &&
-                                              React.createElement(
-                                                Icons[child.icon],
-                                              )}
-                                          </div>
-
-                                          <div>
-                                            <p className="text-sm font-medium">
-                                              {child.title}
-                                            </p>
-                                            {child.description && (
-                                              <p className="text-xs text-muted-foreground line-clamp-2">
-                                                {child.description}
-                                              </p>
-                                            )}
-                                          </div>
-                                        </Link>
-                                      </li>
-                                    ))}
-                                  </ul>
-                                </div>
-                              ) : (
-                                // No child items — render normally
-                                <Link
-                                  href={sub.to ?? "#"}
-                                  className={cn(
-                                    "rounded-md p-2 hover:bg-muted transition block",
-                                    isActive(sub.to) &&
-                                      "bg-muted font-semibold",
-                                  )}
-                                >
-                                  <p className="text-sm font-medium">
-                                    {sub.title}
-                                  </p>
-                                  {sub.description && (
-                                    <p className="text-xs text-muted-foreground line-clamp-2">
-                                      {sub.description}
-                                    </p>
-                                  )}
-                                </Link>
-                              )}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-                ) : (
-                  <NavigationMenuItem key={i}>
-                    <Link
-                      href={menu.to ?? "#"}
-                      className={cn(
-                        "text-sm font-semibold hover:text-primary",
-                        isActive(menu.to) && "text-primary underline",
-                      )}
-                    >
-                      <NavigationMenuLink>{menu.title}</NavigationMenuLink>
-                    </Link>
-                  </NavigationMenuItem>
-                ),
-              )}
-            </NavigationMenuList>
+            <NavigationMenuList></NavigationMenuList>
           </NavigationMenu>
         </div>
 
@@ -179,8 +88,7 @@ export function Header() {
                               href={sub.to ?? "#"}
                               className={cn(
                                 "block py-2 text-sm text-muted-foreground hover:text-primary",
-                                isActive(sub.to) &&
-                                  "text-primary font-semibold",
+                                isActive(sub.to) && "text-primary font-semibold"
                               )}
                               onClick={() => setOpen(false)}
                             >
@@ -199,13 +107,13 @@ export function Header() {
                       href={menu.to ?? "#"}
                       className={cn(
                         "block py-2 text-sm font-medium hover:text-primary",
-                        isActive(menu.to) && "text-primary font-semibold",
+                        isActive(menu.to) && "text-primary font-semibold"
                       )}
                       onClick={() => setOpen(false)}
                     >
                       {menu.title}
                     </Link>
-                  ),
+                  )
                 )}
               </Accordion>
             </ScrollArea>
