@@ -60,7 +60,7 @@ export default async function ProjectPage({ params, searchParams }: PageProps) {
 
   return (
     <div className="container mx-auto py-4 md:py-10 px-4 md:px-0">
-      <Link href="/projects" className="flex items-center pb-2">
+      <Link href="/" className="flex items-center pb-2">
         <ChevronLeft className="mr-2" />
         Projects
       </Link>

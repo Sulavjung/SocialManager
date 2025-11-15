@@ -20,8 +20,8 @@ export function PostCard({ id, title, description, imageUrl }: PostCardProps) {
   return (
     <Card className="overflow-hidden">
       {imageUrl && (
-        <div className="relative h-48 w-full">
-          <Image src={imageUrl} alt={title} fill className="object-cover" />
+        <div className="relative h-28 w-full">
+          <img src={imageUrl} alt={title} className="object-cover" />
         </div>
       )}
       <CardHeader>

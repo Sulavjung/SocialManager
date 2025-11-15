@@ -30,10 +30,9 @@ export default async function PostPage({
       </Link>
       {post.imageUrl && (
         <div className="relative h-96 mb-8 rounded-lg overflow-hidden">
-          <Image
+          <img
             src={post.imageUrl}
             alt={post.title}
-            fill
             className="object-contain"
           />
           <DownloadButton imageUrl={post.imageUrl} />
